@@ -16,7 +16,7 @@
       --gold: #c9aa65;
       --text: #3d3a36;
       --white: rgba(255,255,255,0.9);
-      --shadow: 0 18px 30px rgba(79, 104, 75, 0.18);
+      --shadow: 0 18px 50px rgba(79, 104, 75, 0.18);
     }
 
     * { box-sizing: border-box; }
@@ -118,7 +118,7 @@
 
     .arabic {
       color: var(--matcha-dark);
-      font-size: 1rem;
+      font-size: 2rem;
       margin-bottom: 12px;
     }
 
@@ -126,16 +126,16 @@
       letter-spacing: 4px;
       text-transform: uppercase;
       color: var(--gold);
-      font-size: .78rem;
+      font-size: 20px;
       margin-bottom: 12px;
     }
 
     h1 {
-      font-size: clamp(2.8rem, 7vw, 5rem);
-      line-height: 1;
+      font-size: 50px;
+      line-height: 1.2;
       margin: 0;
       color: var(--matcha-dark);
-      font-weight: 500;
+      font-weight: 700;
     }
 
     .amp { color: var(--strawberry); font-style: italic; }
@@ -143,7 +143,7 @@
     .date {
       margin: 18px 0 22px;
       color: #625b52;
-      font-size: 1.1rem;
+      font-size: 1.5rem;
     }
 
     .guest-box {
@@ -204,7 +204,7 @@
     }
 
     .section-title {
-      font-size: clamp(1.8rem, 5vw, 2.5rem);
+      font-size: 35px;
       color: var(--matcha-dark);
       margin: 0 0 10px;
     }
@@ -217,22 +217,27 @@
     }
 
     .countdown {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-      margin-top: 22px;
-    }
+	  display: flex;
+	  justify-content: center;
+      gap: 6px;
+	}
 
     .count-item {
-      border-radius: 22px;
-      padding: 18px 10px;
+      border-radius: 16px;
+	  padding: 20px;
+	  width: 120px;      /* fix lebar */
+      height: 120px;     /* fix tinggi (biar kotak) */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       background: linear-gradient(180deg, rgba(138,161,125,.16), rgba(247,220,225,.30));
       border: 1px solid rgba(138,161,125,.22);
     }
 
     .count-item strong {
       display: block;
-      font-size: clamp(1.7rem, 4vw, 2.6rem);
+      font-size: 42px;
       color: var(--matcha-dark);
     }
     .count-item span {
@@ -433,17 +438,32 @@
           <div class="arabic">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ</div>
           <div class="eyebrow">The Wedding Of</div>
           <h1>Andre <span class="amp">&</span> Idhi</h1>
-          <p class="date">Sabtu, 25 Juli 2026 · Brebes</p>
+          <p class="date">Sabtu, 25 Juli 2026</p>
 
-          <div class="guest-box">
-            <small>Kepada Yth:</small>
-            <strong id="guest-name-main">Bapak/Ibu/Saudara/i</strong>
-            <small>di Tempat</small>
-          </div>
 
           <div class="btn-row">
             <a class="btn btn-primary" href="#detail">Lihat Detail</a>
-            <a class="btn btn-secondary" href="#rsvp">RSVP</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    
+
+    <section id="couple">
+      <div class="section-card">
+        <h2 class="section-title"> السَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللّٰهِ وَبَرَكَاتُهُ</h2>
+        <p class="section-subtitle">Maha Suci Allah yang telah menciptakan makhluk-Nya berpasang-pasangan. Dengan memohon rahmat dan ridha Allah SWT, kami mengundang Bapak/Ibu/Saudara/i untuk hadir dalam hari bahagia pernikahan kami.</p>
+        <div class="couple-grid">
+          <div class="mini-card">
+            <div class="img-frame"><img class="profile-img" src="andre.jpg" alt="Andre"></div>
+            <h3>Nurwarrohman Andre Sasongko</h3>
+            <p>Putra kedua dari<br><strong>Bapak Siwar & Ibu Muzaroh</strong></p>
+          </div>
+          <div class="mini-card">
+            <div class="img-frame"><img class="profile-img" src="idhi.jpg" alt="Idhi"></div>
+            <h3>Idhiyani Murounaky</h3>
+            <p>Putri pertama dari<br><strong>Bapak Saefulloh (Alm) & Ibu Jumeroh</strong></p>
           </div>
         </div>
       </div>
@@ -451,8 +471,7 @@
 
     <section id="countdown">
       <div class="section-card">
-        <h2 class="section-title">Menuju Hari Bahagia</h2>
-        <p class="section-subtitle">Hitung mundur menuju pernikahan Andre & Idhi.</p>
+        <h2 class="section-title">Save the Date</h2>
         <div class="countdown">
           <div class="count-item"><strong id="days">0</strong><span>Hari</span></div>
           <div class="count-item"><strong id="hours">0</strong><span>Jam</span></div>
@@ -465,42 +484,16 @@
       </div>
     </section>
 
-    <section>
-      <div class="section-card">
-        <h2 class="section-title">Assalamu’alaikum Warahmatullahi Wabarakatuh</h2>
-        <p class="section-subtitle">Maha Suci Allah yang telah menciptakan makhluk-Nya berpasang-pasangan. Dengan memohon rahmat dan ridha Allah SWT, kami mengundang Bapak/Ibu/Saudara/i untuk hadir dalam hari bahagia pernikahan kami.</p>
-      </div>
-    </section>
-
-    <section id="couple">
-      <div class="section-card">
-        <h2 class="section-title">Mempelai</h2>
-        <div class="couple-grid">
-          <div class="mini-card">
-            <div class="img-frame"><img class="profile-img" src="andre.jpg" alt="Andre"></div>
-            <h3>Andre</h3>
-            <p>Putra dari<br><strong>Bapak ... & Ibu ...</strong></p>
-          </div>
-          <div class="mini-card">
-            <div class="img-frame"><img class="profile-img" src="idhi.jpg" alt="Idhi"></div>
-            <h3>Idhi</h3>
-            <p>Putri dari<br><strong>Bapak ... & Ibu ...</strong></p>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <section id="detail">
       <div class="section-card">
         <h2 class="section-title">Detail Acara</h2>
-        <p class="section-subtitle">Simpan tanggalnya dan semoga Allah SWT memudahkan langkah kita untuk bertemu dalam momen penuh keberkahan ini.</p>
 
         <div class="event-grid">
           <div class="mini-card">
             <h3>Akad Nikah</h3>
             <p><strong>Sabtu, 25 Juli 2026</strong></p>
             <p>08.00 WIB</p>
-            <p>Bertempat di<br><strong>Brebes</strong></p>
+            <p>Bertempat di<br><strong>Kubang Kulur RT 01 RW 05 Desa Pengarasan, Kec. Bantarkawung, Kab. Brebes</strong></p>
             <a class="btn btn-primary" href="https://maps.app.goo.gl/TYEihZfE53QeEXek9" target="_blank" rel="noopener">Google Maps</a>
           </div>
 
@@ -508,7 +501,7 @@
             <h3>Resepsi</h3>
             <p><strong>Sabtu, 25 Juli 2026</strong></p>
             <p>10.00 WIB - Selesai</p>
-            <p>Bertempat di<br><strong>Brebes</strong></p>
+            <p>Bertempat di<br><strong>Kubang Kulur RT 01 RW 05 Desa Pengarasan, Kec. Bantarkawung, Kab. Brebes</strong></p>
             <a class="btn btn-primary" href="https://maps.app.goo.gl/TYEihZfE53QeEXek9" target="_blank" rel="noopener">Google Maps</a>
           </div>
         </div>
@@ -518,7 +511,6 @@
     <section id="gift">
       <div class="section-card">
         <h2 class="section-title">Wedding Gift</h2>
-        <p class="section-subtitle">Doa restu Anda merupakan karunia yang sangat berarti bagi kami. Namun, jika memberi adalah ungkapan tanda kasih, Anda dapat mengirimkannya secara cashless.</p>
         <div class="gift-grid">
           <div class="mini-card">
             <h3>Bank / E-Wallet</h3>
