@@ -118,7 +118,7 @@
 
     .arabic {
       color: var(--matcha-dark);
-      font-size: 2rem;
+      font-size: 1.1rem;
       margin-bottom: 12px;
     }
 
@@ -126,12 +126,12 @@
       letter-spacing: 4px;
       text-transform: uppercase;
       color: var(--gold);
-      font-size: 20px;
+      font-size: 12px;
       margin-bottom: 12px;
     }
 
     h1 {
-      font-size: 50px;
+      font-size: 30px;
       line-height: 1.2;
       margin: 0;
       color: var(--matcha-dark);
@@ -143,7 +143,7 @@
     .date {
       margin: 18px 0 22px;
       color: #625b52;
-      font-size: 1.5rem;
+      font-size: 1rem;
     }
 
     .guest-box {
@@ -179,7 +179,7 @@
       font-family: inherit;
       cursor: pointer;
       transition: .25s ease;
-      font-size: .95rem;
+      font-size: .80rem;
     }
 
     .btn:hover { transform: translateY(-2px); }
@@ -204,12 +204,13 @@
     }
 
     .section-title {
-      font-size: 35px;
+      font-size: 18px;
       color: var(--matcha-dark);
       margin: 0 0 10px;
     }
 
     .section-subtitle {
+	  font-size: 11px;
       margin: 0 auto 26px;
       max-width: 720px;
       color: #756e65;
@@ -219,14 +220,14 @@
     .countdown {
 	  display: flex;
 	  justify-content: center;
-      gap: 6px;
+      gap: 10px;
 	}
 
     .count-item {
       border-radius: 16px;
-	  padding: 20px;
-	  width: 120px;      /* fix lebar */
-      height: 120px;     /* fix tinggi (biar kotak) */
+	  padding: 10px;
+	  width: 80px;      /* fix lebar */
+      height: 80px;     /* fix tinggi (biar kotak) */
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -237,11 +238,12 @@
 
     .count-item strong {
       display: block;
-      font-size: 42px;
+      font-size: 20px;
       color: var(--matcha-dark);
+	  margin-bottom: 6px;  /* ⬅️ ini jaraknya */
     }
     .count-item span {
-      font-size: .85rem;
+      font-size: .70rem;
       text-transform: uppercase;
       letter-spacing: .8px;
       color: #6d665f;
@@ -265,10 +267,11 @@
     .mini-card h3 {
       margin: 0 0 10px;
       color: var(--strawberry);
-      font-size: 1.35rem;
+      font-size: 1rem;
     }
 
     .mini-card p, .mini-card li {
+	  font-size: 14px;
       line-height: 1.8;
       color: #5d5851;
     }
@@ -439,10 +442,6 @@
           <div class="eyebrow">The Wedding Of</div>
           <h1>Andre <span class="amp">&</span> Idhi</h1>
           <p class="date">Sabtu, 25 Juli 2026</p>
-
-
-          <div class="btn-row">
-            <a class="btn btn-primary" href="#detail">Lihat Detail</a>
           </div>
         </div>
       </div>
@@ -493,7 +492,8 @@
             <h3>Akad Nikah</h3>
             <p><strong>Sabtu, 25 Juli 2026</strong></p>
             <p>08.00 WIB</p>
-            <p>Bertempat di<br><strong>Kubang Kulur RT 01 RW 05 Desa Pengarasan, Kec. Bantarkawung, Kab. Brebes</strong></p>
+            <p><strong>Lokasi</strong></p>
+			<p>Kubang Kulur RT 01 RW 05 Desa Pengarasan, Kec. Bantarkawung, Kab. Brebes</p>
             <a class="btn btn-primary" href="https://maps.app.goo.gl/TYEihZfE53QeEXek9" target="_blank" rel="noopener">Google Maps</a>
           </div>
 
@@ -501,7 +501,8 @@
             <h3>Resepsi</h3>
             <p><strong>Sabtu, 25 Juli 2026</strong></p>
             <p>10.00 WIB - Selesai</p>
-            <p>Bertempat di<br><strong>Kubang Kulur RT 01 RW 05 Desa Pengarasan, Kec. Bantarkawung, Kab. Brebes</strong></p>
+            <p><strong>Lokasi</strong></p>
+			<p>Kubang Kulur RT 01 RW 05 Desa Pengarasan, Kec. Bantarkawung, Kab. Brebes</p>
             <a class="btn btn-primary" href="https://maps.app.goo.gl/TYEihZfE53QeEXek9" target="_blank" rel="noopener">Google Maps</a>
           </div>
         </div>
@@ -580,7 +581,7 @@
     </section>
 
     <footer>
-      Made with love · Andre & Idhi · 25 Juli 2026 · Brebes
+      Made with love · Andre & Idhi · 25 Juli 2026
     </footer>
   </main>
 
