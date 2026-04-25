@@ -473,38 +473,15 @@
     <section id="rsvp">
       <div class="section-card">
         <h2 class="section-title">Ucapan & Doa</h2>
-        <p class="section-subtitle">Berikan ucapan, doa, dan konfirmasi kehadiran kepada kedua mempelai.</p>
+        <p class="section-subtitle">Tulis ucapan dan doa Anda untuk kedua mempelai</p>
 
-        <div class="rsvp-grid">
-          <div class="mini-card">
-            <h3>RSVP</h3>
-            <form onsubmit="sendRSVP(event)">
-              <input id="guestName" type="text" placeholder="Nama Anda" required>
-              <select id="attendance" required>
-                <option value="">Konfirmasi Kehadiran</option>
-                <option value="Hadir">Hadir</option>
-                <option value="Tidak Hadir">Tidak Hadir</option>
-                <option value="Masih Ragu">Masih Ragu</option>
-              </select>
-              <select id="guestCount" required>
-                <option value="">Jumlah Tamu</option>
-                <option value="1 orang">1 orang</option>
-                <option value="2 orang">2 orang</option>
-                <option value="3 orang">3 orang</option>
-                <option value="4 orang">4 orang</option>
-                <option value="5 orang">5 orang</option>
-              </select>
-              <textarea id="guestMessage" rows="4" placeholder="Tulis ucapan atau doa"></textarea>
-              <button class="btn btn-primary" type="submit">Kirim via WhatsApp</button>
-            </form>
-          </div>
+        <form onsubmit="addWish(event)">
+          <input id="wishName" type="text" placeholder="Nama Anda" required>
+          <textarea id="wishMessage" rows="3" placeholder="Tulis ucapan atau doa" required></textarea>
+          <button class="btn btn-primary" type="submit">Kirim Ucapan</button>
+        </form>
 
-          <div class="mini-card">
-            <h3>Konfirmasi WhatsApp</h3>
-            <p>Silakan klik tombol di bawah untuk mengirim konfirmasi langsung melalui WhatsApp.</p>
-            <a class="btn btn-secondary" href="https://wa.me/6280000000000?text=Halo%20Andre%20dan%20Idhi%2C%20saya%20ingin%20mengonfirmasi%20kehadiran%20untuk%20acara%20pernikahan." target="_blank">Konfirmasi WhatsApp</a>
-          </div>
-        </div>
+        <div id="wishList" style="margin-top:24px; text-align:left;"></div>
       </div>
     </section>
 
@@ -559,10 +536,60 @@
       window.open(url, '_blank');
     }
 
-    function copyText(id) {
-      const text = document.getElementById(id).textContent;
-      navigator.clipboard.writeText(text).then(() => alert('Nomor berhasil disalin'));
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyFEfw65_MXr2qAakjOS5QywXRkOoY45EF6_YzlEgAiju0iIjsz1XuK43uRKhm4wtdE/exec';
+
+    async function addWish(event) {
+      event.preventDefault();
+      const name = document.getElementById('wishName').value.trim();
+      const message = document.getElementById('wishMessage').value.trim();
+
+      if (!name || !message) return;
+
+      const button = event.target.querySelector('button');
+      button.textContent = 'Mengirim...';
+      button.disabled = true;
+
+      try {
+        await fetch(SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, message })
+        });
+
+        document.getElementById('wishName').value = '';
+        document.getElementById('wishMessage').value = '';
+        loadWishes();
+      } catch (error) {
+        alert('Gagal mengirim ucapan');
+      }
+
+      button.textContent = 'Kirim Ucapan';
+      button.disabled = false;
     }
+
+    async function loadWishes() {
+      const container = document.getElementById('wishList');
+      container.innerHTML = 'Memuat...';
+
+      try {
+        const response = await fetch(SCRIPT_URL);
+        const data = await response.json();
+
+        if (!data.length) {
+          container.innerHTML = '<p>Belum ada ucapan</p>';
+          return;
+        }
+
+        container.innerHTML = data.reverse().map(w => `
+          <div style="background:white;padding:12px;border-radius:10px;margin-bottom:10px;">
+            <strong>${w.name}</strong><br>${w.message}
+          </div>
+        `).join('');
+      } catch (err) {
+        container.innerHTML = '<p>Gagal load ucapan</p>';
+      }
+    } 
 
     const eventDate = new Date('2026-07-25T08:00:00+07:00').getTime();
 
@@ -577,6 +604,7 @@
     }
 
     getGuestName();
+    loadWishes();
     updateCountdown();
     setInterval(updateCountdown, 1000);
   </script>
