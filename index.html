@@ -415,6 +415,86 @@
       font-size: .9rem;
     }
 
+
+
+    /* RSVP section - adjusted to match Wedding Gift section */
+    #rsvp form {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    #rsvp input,
+    #rsvp textarea {
+      font-size: 13px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      margin-bottom: 10px;
+      color: #5d5851;
+    }
+
+    #rsvp input::placeholder,
+    #rsvp textarea::placeholder {
+      color: #9a9288;
+    }
+
+    #rsvp .rsvp-icons {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin: 12px 0 12px;
+    }
+
+    #rsvp .rsvp-option {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      min-height: 42px;
+      padding: 10px 8px;
+      border-radius: 16px;
+      border: 1px solid rgba(217,139,151,.22);
+      background: linear-gradient(180deg, rgba(247,220,225,.32), rgba(255,255,255,.84));
+      color: #5d5851;
+      font-size: 13px;
+      line-height: 1.2;
+      font-family: inherit;
+      cursor: pointer;
+      transition: 0.25s ease;
+    }
+
+    #rsvp .rsvp-option .icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      line-height: 1;
+      margin: 0;
+    }
+
+    #rsvp .rsvp-option.active {
+      background: linear-gradient(180deg, rgba(138,161,125,0.22), rgba(247,220,225,0.38));
+      border-color: var(--matcha);
+      box-shadow: 0 8px 20px rgba(79,104,75,0.14);
+      transform: translateY(-2px);
+    }
+
+    #rsvp .btn {
+      font-size: 13px;
+      padding: 10px 18px;
+      margin-top: 4px;
+    }
+
+    #rsvp #wishList {
+      max-width: 720px;
+      margin: 22px auto 0 !important;
+      text-align: left;
+    }
+
+    #rsvp .wish-card {
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
     @media (max-width: 820px) {
       .hero-card, .couple-grid, .event-grid, .gift-grid, .rsvp-grid {
         grid-template-columns: 1fr;
@@ -531,39 +611,34 @@
     <section id="gift">
       <div class="section-card">
         <h2 class="section-title">Wedding Gift</h2>
-        <p class="section-subtitle">
-         
+        <p class="section-subtitle"></p>
+
         <div class="gift-grid">
+          <div class="mini-card">
+            <img src="gopay.png" class="payment-logo" alt="GoPay">
+            <strong id="rekening1">085642989030</strong>
+            <p><strong>Idhiyani Murounaky</strong></p>
+            <button class="btn btn-secondary" onclick="copyText('rekening1')">Salin No</button>
+          </div>
 
-      <div class="mini-card">
-        <img src="gopay.png" class="payment-logo" alt="GoPay">
-        <strong id="rekening1">085642989030</strong>
-        <p><strong>Idhiyani Murounaky</strong></p>
-        <button class="btn btn-secondary" onclick="copyText('rekening1')">Salin No</button>
+          <div class="mini-card">
+            <img src="bri.png" class="payment-logo" alt="BRI">
+            <strong id="rekening2">368401030262538</strong>
+            <p><strong>Idhiyani Murounaky</strong></p>
+            <button class="btn btn-secondary" onclick="copyText('rekening2')">Salin No</button>
+          </div>
+
+          <div class="mini-card" style="margin-top:18px;">
+            <h3>Kirim Hadiah</h3>
+            <p class="gift-note">Idhiyani Murounaky</p>
+            <p>Kubang Kulur RT 01 RW 05 Desa Pengarasan, Kec. Bantarkawung, Kab. Brebes</p>
+            <a class="btn btn-primary" href="https://maps.app.goo.gl/TYEihZfE53QeEXek9" target="_blank" rel="noopener">
+              Google Maps
+            </a>
+          </div>
+        </div>
       </div>
-
-      <div class="mini-card">
-        <img src="bri.png" class="payment-logo" alt="BRI">
-        <strong id="rekening2">368401030262538</strong>
-        <p><strong>Idhiyani Murounaky</strong></p>
-        <button class="btn btn-secondary" onclick="copyText('rekening2')">Salin No</button>
-      </div>
-
-		<div class="mini-card" style="margin-top:18px;">
-			<h3>Kirim Hadiah</h3>
-			<p class="gift-note">
-			Idhiyani Murounaky
-			</p>
-			<p>
-			<p>Kubang Kulur RT 01 RW 05 Desa Pengarasan, Kec. Bantarkawung, Kab. Brebes</p>
-			</p>
-			<a class="btn btn-primary" href="https://maps.app.goo.gl/TYEihZfE53QeEXek9" target="_blank" rel="noopener">
-			Google Maps
-			</a>
-		</div>
-		</div>
-	</section>
-
+    </section>
 
     <section id="rsvp">
       <div class="section-card">
@@ -600,7 +675,7 @@
     <section>
       <div class="section-card">
         <h2 class="section-title">QS. Ar-Rum Ayat 21</h2>
-        <p class="quran">وَمِنْ اٰيٰتِهٖٓ اَنْ خَلَقَ لَكُمْ مِّنْ اَنْفُسِكُمْ اَزْوَاجًا لِّتَسْكُنُوْٓا اِلَيْهَا وَجَعَلَ بَيْنَكُمْ مَّوَدَّةً وَّرَحْمَةً</p>
+        <p class="section-title">وَمِنْ اٰيٰتِهٖٓ اَنْ خَلَقَ لَكُمْ مِّنْ اَنْفُسِكُمْ اَزْوَاجًا لِّتَسْكُنُوْٓا اِلَيْهَا وَجَعَلَ بَيْنَكُمْ مَّوَدَّةً وَّرَحْمَةً</h2>
         <p class="section-subtitle">Dan di antara tanda-tanda kebesaran-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang.</p>
       </div>
     </section>
