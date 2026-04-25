@@ -315,13 +315,23 @@
 <body>
   
   <!-- MUSIC -->
-  <audio id="bg-music" loop>
+  <audio id="bg-music" loop preload="auto">
     <source src="music.mp3" type="audio/mpeg">
   </audio>
 
-  <button onclick="toggleMusic()" style="position:fixed; bottom:20px; right:20px; z-index:999; background:#8aa17d; color:white; border:none; padding:12px 18px; border-radius:30px; cursor:pointer;">
-    ▶️ Play Music
-  </button>
+  <!-- OPENING SCREEN -->
+  <div id="opening-screen" style="position:fixed; inset:0; z-index:9999; display:flex; align-items:center; justify-content:center; text-align:center; padding:24px; background:linear-gradient(135deg, #8aa17d, #f3d7dc, #fffaf5);">
+    <div style="background:rgba(255,255,255,0.86); border:1px solid rgba(195,168,107,0.35); border-radius:28px; padding:38px 26px; max-width:460px; width:100%; box-shadow:0 20px 60px rgba(95,103,85,0.22);">
+      <div style="font-size:1rem; color:#61755a; margin-bottom:12px;">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ</div>
+      <div style="letter-spacing:4px; text-transform:uppercase; font-size:.78rem; color:#c3a86b; margin-bottom:12px;">Undangan Pernikahan</div>
+      <h1 style="font-size:clamp(2.5rem, 8vw, 4rem); margin:0; color:#61755a;">Andre <span style="color:#d98b97; font-style:italic;">&</span> Idhi</h1>
+      <p style="line-height:1.8; color:#5d5851; margin:18px 0 26px;">Kepada Bapak/Ibu/Saudara/i, dengan hormat kami mengundang Anda untuk hadir dalam hari bahagia kami.</p>
+      <button onclick="openInvitation()" style="background:linear-gradient(90deg,#61755a,#8aa17d); color:white; border:none; padding:14px 28px; border-radius:999px; cursor:pointer; font:inherit; box-shadow:0 10px 24px rgba(97,117,90,0.25);">
+        Buka Undangan
+      </button>
+    </div>
+  </div>
+
   <div class="ornament"></div>
 
   <main>
@@ -462,6 +472,24 @@
   </main>
 
   <script>
+    function openInvitation() {
+      const opening = document.getElementById('opening-screen');
+      const music = document.getElementById('bg-music');
+
+      opening.style.opacity = '0';
+      opening.style.transition = 'opacity 0.8s ease';
+
+      setTimeout(() => {
+        opening.style.display = 'none';
+      }, 800);
+
+      music.volume = 0.6;
+      music.play().catch(() => {
+        console.log('Music autoplay was blocked by the browser.');
+      });
+    }
+
+    
     function sendRSVP(event) {
       event.preventDefault();
       const name = document.getElementById('guestName').value.trim();
@@ -506,11 +534,14 @@ Selamat atas pernikahan Andre & Idhi.`;
     updateCountdown();
     setInterval(updateCountdown, 1000);
   
-    function toggleMusic() {
+    // Auto unmute when user interacts (required by browser)
+    document.addEventListener('click', function () {
       const music = document.getElementById('bg-music');
-      if (music.paused) {
+      if (music.muted) {
+        music.muted = false;
         music.play();
-      } else {
+      }
+    }); else {
         music.pause();
       }
     }
