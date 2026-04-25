@@ -586,14 +586,18 @@
 
   <script>
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyFEfw65_MXr2qAakjOS5QywXRkOoY45EF6_YzlEgAiju0iIjsz1XuK43uRKhm4wtdE/exec';
-    const eventDate = new Date('2026-07-25T08:00:00+07:00').getTime();
+    const eventDate = new Date(2026, 6, 25, 8, 0, 0).getTime();
 
     function getGuestName() {
       const params = new URLSearchParams(window.location.search);
       const guest = params.get('to');
       const name = guest ? guest.replace(/\+/g, ' ') : 'Bapak/Ibu/Saudara/i';
-      document.getElementById('guest-name-cover').textContent = name;
-      document.getElementById('guest-name-main').textContent = name;
+
+      const coverName = document.getElementById('guest-name-cover');
+      if (coverName) coverName.textContent = name;
+
+      const mainName = document.getElementById('guest-name-main');
+      if (mainName) mainName.textContent = name;
     }
 
     function openInvitation() {
