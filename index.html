@@ -4,548 +4,106 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pernikahan Andre & Idhi</title>
-  <style>
-    :root {
-      --matcha: #8aa17d;
-      --matcha-dark: #61755a;
-      --strawberry: #d98b97;
-      --strawberry-soft: #f3d7dc;
-      --cream: #fffaf5;
-      --gold: #c3a86b;
-      --text: #3d3a36;
-      --white: rgba(255,255,255,0.82);
-      --shadow: 0 18px 50px rgba(95, 103, 85, 0.15);
-    }
 
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+  <style>
     body {
       margin: 0;
-      font-family: "Georgia", "Times New Roman", serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at top left, rgba(138,161,125,0.16), transparent 28%),
-        radial-gradient(circle at bottom right, rgba(217,139,151,0.18), transparent 25%),
-        linear-gradient(180deg, #fffdf9 0%, #f8f2ea 100%);
-      overflow-x: hidden;
-    }
-
-    .ornament {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      opacity: .18;
-      background-image:
-        radial-gradient(circle at 20% 20%, var(--matcha) 0 2px, transparent 3px),
-        radial-gradient(circle at 80% 10%, var(--strawberry) 0 2px, transparent 3px),
-        radial-gradient(circle at 90% 70%, var(--gold) 0 2px, transparent 3px),
-        radial-gradient(circle at 10% 80%, var(--matcha-dark) 0 2px, transparent 3px);
-      background-size: 180px 180px;
-      z-index: 0;
-    }
-
-    main {
-      position: relative;
-      z-index: 1;
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 20px;
+      font-family: Georgia, serif;
+      background: linear-gradient(135deg, #8aa17d, #f3d7dc, #fffaf5);
+      color: #333;
     }
 
     .hero {
       min-height: 100vh;
-      display: grid;
-      align-items: center;
-      padding: 24px 0 36px;
-    }
-
-    .hero-card {
-      display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      gap: 28px;
-      background: linear-gradient(145deg, rgba(255,255,255,0.88), rgba(255,248,243,0.92));
-      border: 1px solid rgba(195,168,107,0.25);
-      border-radius: 28px;
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      backdrop-filter: blur(4px);
-    }
-
-    .hero-image {
-      min-height: 620px;
-      background:
-        linear-gradient(to bottom, rgba(97,117,90,0.08), rgba(217,139,151,0.08)),
-        url('photo.jpg') center/cover no-repeat;
-      position: relative;
-    }
-
-    .hero-image::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(48,48,48,.12), transparent 45%);
-    }
-
-    .hero-content {
-      padding: 44px 34px;
       display: flex;
-      flex-direction: column;
       justify-content: center;
+      align-items: center;
+      text-align: center;
     }
 
-    .arabic {
-      font-size: 1rem;
-      color: var(--matcha-dark);
-      letter-spacing: .5px;
-      margin-bottom: 12px;
-    }
-
-    .eyebrow {
-      text-transform: uppercase;
-      letter-spacing: 4px;
-      font-size: .8rem;
-      color: var(--gold);
-      margin-bottom: 10px;
+    .hero-box {
+      background: rgba(255,255,255,0.9);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     }
 
     h1 {
-      font-size: clamp(2.8rem, 6vw, 4.8rem);
-      line-height: 1;
+      font-size: 2.5em;
       margin: 0;
-      color: var(--matcha-dark);
-      font-weight: 600;
-    }
-
-    .ampersand {
-      color: var(--strawberry);
-      font-style: italic;
-      display: inline-block;
-      padding: 0 8px;
-    }
-
-    .tagline {
-      margin: 18px 0 26px;
-      font-size: 1.05rem;
-      line-height: 1.75;
-      max-width: 42ch;
-    }
-
-    .highlight-boxes {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin: 4px 0 26px;
-    }
-
-    .highlight {
-      background: linear-gradient(180deg, rgba(138,161,125,0.14), rgba(255,255,255,0.7));
-      border: 1px solid rgba(138,161,125,0.18);
-      border-radius: 18px;
-      padding: 16px 12px;
-      text-align: center;
-    }
-
-    .highlight strong {
-      display: block;
-      font-size: 1rem;
-      color: var(--matcha-dark);
-      margin-bottom: 6px;
-    }
-
-    .highlight span {
-      font-size: .92rem;
-      color: #5d5851;
-    }
-
-    .btn-row {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
+      color: #61755a;
     }
 
     .btn {
-      text-decoration: none;
-      padding: 14px 22px;
-      border-radius: 999px;
-      font-size: .95rem;
-      transition: .25s ease;
-      border: 1px solid transparent;
-      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 30px;
+      background: #61755a;
+      color: white;
+      cursor: pointer;
     }
 
-    .btn-primary {
-      background: linear-gradient(90deg, var(--matcha-dark), var(--matcha));
-      color: #fff;
-      box-shadow: 0 10px 24px rgba(97,117,90,0.22);
+    #opening-screen {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(135deg, #8aa17d, #f3d7dc);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
     }
 
-    .btn-secondary {
-      background: rgba(255,255,255,0.7);
-      border-color: rgba(217,139,151,0.5);
-      color: var(--strawberry);
-    }
-
-    .btn:hover { transform: translateY(-2px); }
-
-    section {
-      margin: 34px 0;
-    }
-
-    .section-card {
-      background: var(--white);
-      border: 1px solid rgba(195,168,107,0.18);
-      border-radius: 28px;
-      padding: 34px 26px;
-      box-shadow: var(--shadow);
-    }
-
-    .section-title {
+    #main-content {
+      display: none;
+      padding: 40px;
       text-align: center;
-      font-size: 2rem;
-      color: var(--matcha-dark);
-      margin: 0 0 8px;
     }
 
-    .section-subtitle {
-      text-align: center;
-      color: #7c746b;
-      margin: 0 0 26px;
-      line-height: 1.7;
-    }
-
-    .quote {
-      text-align: center;
-      max-width: 760px;
-      margin: 0 auto;
-      font-size: 1.02rem;
-      line-height: 1.9;
-    }
-
-    .timeline {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 18px;
-    }
-
-    .info-box {
-      background: linear-gradient(180deg, rgba(243,215,220,0.32), rgba(255,255,255,0.85));
-      border-radius: 22px;
-      padding: 24px;
-      border: 1px solid rgba(217,139,151,0.2);
-    }
-
-    .info-box h3 {
-      margin: 0 0 14px;
-      color: var(--strawberry);
-      font-size: 1.25rem;
-    }
-
-    .info-list {
-      margin: 0;
-      padding: 0;
-      list-style: none;
-      line-height: 1.9;
-    }
-
-    .countdown {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
-      margin-top: 22px;
-    }
-
-    .count-item {
-      background: linear-gradient(180deg, rgba(138,161,125,0.14), rgba(255,255,255,0.78));
-      border-radius: 22px;
-      text-align: center;
-      padding: 18px 10px;
-      border: 1px solid rgba(138,161,125,0.18);
-    }
-
-    .count-item strong {
-      display: block;
-      font-size: clamp(1.8rem, 4vw, 2.5rem);
-      color: var(--matcha-dark);
-    }
-
-    .count-item span {
-      color: #6d675e;
-      font-size: .92rem;
-      letter-spacing: .7px;
-      text-transform: uppercase;
-    }
-
-    .closing {
-      text-align: center;
-      line-height: 1.9;
-      max-width: 760px;
-      margin: 0 auto;
-    }
-
-    footer {
-      text-align: center;
-      padding: 20px 0 34px;
-      color: #7f776d;
-      font-size: .9rem;
-    }
-
-    @media (max-width: 900px) {
-      .hero-card,
-      .timeline {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-image {
-        min-height: 440px;
-      }
-    }
-
-    @media (max-width: 680px) {
-      main { padding: 14px; }
-      .hero-content { padding: 28px 22px 32px; }
-      .highlight-boxes,
-      .countdown {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      .section-card { padding: 28px 18px; }
-      h1 { line-height: 1.08; }
+    img {
+      width: 250px;
+      border-radius: 20px;
+      margin-bottom: 20px;
     }
   </style>
 </head>
+
 <body>
-  
-  <!-- MUSIC -->
-  <audio id="bg-music" loop preload="auto">
-    <source src="music.mp3" type="audio/mpeg">
-  </audio>
 
-  <!-- OPENING SCREEN -->
-  <div id="opening-screen" style="position:fixed; inset:0; z-index:9999; display:flex; align-items:center; justify-content:center; text-align:center; padding:24px; background:linear-gradient(135deg, #8aa17d, #f3d7dc, #fffaf5);">
-    <div style="background:rgba(255,255,255,0.86); border:1px solid rgba(195,168,107,0.35); border-radius:28px; padding:38px 26px; max-width:460px; width:100%; box-shadow:0 20px 60px rgba(95,103,85,0.22);">
-      <div style="font-size:1rem; color:#61755a; margin-bottom:12px;">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ</div>
-      <div style="letter-spacing:4px; text-transform:uppercase; font-size:.78rem; color:#c3a86b; margin-bottom:12px;">Undangan Pernikahan</div>
-      <h1 style="font-size:clamp(2.5rem, 8vw, 4rem); margin:0; color:#61755a;">Andre <span style="color:#d98b97; font-style:italic;">&</span> Idhi</h1>
-      <p style="line-height:1.8; color:#5d5851; margin:18px 0 26px;">Kepada Bapak/Ibu/Saudara/i, dengan hormat kami mengundang Anda untuk hadir dalam hari bahagia kami.</p>
-      <button onclick="openInvitation()" style="background:linear-gradient(90deg,#61755a,#8aa17d); color:white; border:none; padding:14px 28px; border-radius:999px; cursor:pointer; font:inherit; box-shadow:0 10px 24px rgba(97,117,90,0.25);">
-        Buka Undangan
-      </button>
-    </div>
+<!-- MUSIC -->
+<audio id="bg-music" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<!-- OPENING -->
+<div id="opening-screen">
+  <div class="hero-box">
+    <p>Undangan Pernikahan</p>
+    <h1>Andre & Idhi</h1>
+    <button type="button" class="btn" onclick="openInvitation()">Buka Undangan</button>
   </div>
+</div>
 
-  <div class="ornament"></div>
+<!-- MAIN -->
+<div id="main-content">
+  <img src="photo.jpg">
+  <h1>Andre & Idhi</h1>
+  <p>25 Juli 2026 - Brebes</p>
+  <p>Terima kasih atas doa dan kehadiran Anda</p>
+</div>
 
-  <main>
-    <section class="hero" id="home">
-      <div class="hero-card">
-        <div class="hero-image" aria-label="Foto Andre dan Idhi"></div>
-        <div class="hero-content">
-          <div class="arabic">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ</div>
-          <div class="eyebrow">Undangan Pernikahan</div>
-          <h1>Andre <span class="ampersand">&</span> Idhi</h1>
-          <p class="tagline">
-            Dengan memohon rahmat dan ridha Allah SWT, kami mengundang Bapak/Ibu/Saudara/i untuk hadir dalam hari bahagia pernikahan kami.
-          </p>
+<script>
+function openInvitation() {
+  document.getElementById("opening-screen").style.display = "none";
+  document.getElementById("main-content").style.display = "block";
 
-          <div class="highlight-boxes">
-            <div class="highlight">
-              <strong>Sabtu</strong>
-              <span>25 Juli 2026</span>
-            </div>
-            <div class="highlight">
-              <strong>Lokasi</strong>
-              <span>Brebes</span>
-            </div>
+  const music = document.getElementById("bg-music");
+  music.volume = 0.6;
+  music.play().catch(() => {
+    console.log("Autoplay blocked");
+  });
+}
+</script>
 
-          <div class="btn-row">
-            <a class="btn btn-primary" href="#detail">Lihat Detail</a>
-            <a class="btn btn-secondary" href="#countdown">Hitung Mundur</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="section-card">
-        <h2 class="section-title">Assalamu’alaikum Warahmatullahi Wabarakatuh</h2>
-        <p class="quote">
-          “Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu pasangan hidup dari jenismu sendiri supaya kamu merasa tenteram di sampingnya, dan Dia menjadikan di antaramu rasa kasih dan sayang.”<br>
-          <strong>QS. Ar-Rum: 21</strong>
-        </p>
-      </div>
-    </section>
-
-    <section id="detail">
-      <div class="section-card">
-        <h2 class="section-title">Detail Acara</h2>
-        <p class="section-subtitle">
-          Simpan tanggalnya dan semoga Allah SWT memudahkan langkah kita untuk bertemu dalam momen penuh keberkahan ini.
-        </p>
-
-        <div class="timeline">
-          <div class="info-box">
-            <h3>Waktu & Tempat</h3>
-            <ul class="info-list">
-              <li><strong>Hari/Tanggal:</strong> Sabtu, 25 Juli 2026</li>
-              <li><strong>Kota:</strong> Brebes</li>
-              <li><strong>Catatan:</strong> Detail jam dan alamat lengkap dapat ditambahkan nanti</li>
-            </ul>
-          </div>
-
-          <div class="info-box">
-            <h3>Pesan Undangan</h3>
-            <ul class="info-list">
-              <li>Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir.</li>
-              <li>Doa restu Anda menjadi hadiah terindah bagi kami.</li>
-              <li>Terima kasih atas kasih sayang, doa, dan kehadirannya.</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    
-
-    <section id="rsvp">
-      <div class="section-card">
-        <h2 class="section-title">RSVP</h2>
-        <p class="section-subtitle">Mohon konfirmasi kehadiran Anda agar persiapan acara kami menjadi lebih baik.</p>
-        <div class="timeline">
-          <div class="info-box">
-            <h3>Konfirmasi via WhatsApp</h3>
-            <ul class="info-list">
-              <li><strong>Nama:</strong> Andre / Idhi</li>
-              <li><strong>Nomor:</strong> 08xxxxxxxxxx</li>
-              <li><strong>Pesan:</strong> Halo, saya ingin mengonfirmasi kehadiran untuk acara pernikahan Andre & Idhi.</li>
-            </ul>
-            <div style="margin-top:16px;">
-              <a class="btn btn-primary" href="https://wa.me/6280000000000?text=Halo%20Andre%20dan%20Idhi%2C%20saya%20ingin%20mengonfirmasi%20kehadiran%20untuk%20acara%20pernikahan." target="_blank" rel="noopener">Kirim RSVP</a>
-            </div>
-          </div>
-
-          <div class="info-box">
-            <h3>Ucapan & Doa</h3>
-            <form onsubmit="sendRSVP(event)">
-              <div style="display:grid; gap:12px;">
-                <input id="guestName" type="text" placeholder="Nama Anda" required style="padding:14px 16px; border-radius:14px; border:1px solid rgba(138,161,125,0.28); font: inherit;">
-                <select id="attendance" required style="padding:14px 16px; border-radius:14px; border:1px solid rgba(138,161,125,0.28); font: inherit; background:white;">
-                  <option value="">Pilih kehadiran</option>
-                  <option value="Hadir">Hadir</option>
-                  <option value="InsyaAllah hadir">InsyaAllah hadir</option>
-                  <option value="Belum bisa hadir">Belum bisa hadir</option>
-                </select>
-                <textarea id="guestMessage" rows="4" placeholder="Tulis ucapan atau doa" style="padding:14px 16px; border-radius:14px; border:1px solid rgba(138,161,125,0.28); font: inherit; resize: vertical;"></textarea>
-                <button class="btn btn-secondary" type="submit" style="cursor:pointer; border:none;">Kirim via WhatsApp</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="countdown">
-      <div class="section-card">
-        <h2 class="section-title">Menuju Hari Bahagia</h2>
-        <p class="section-subtitle">Hitung mundur menuju pernikahan Andre & Idhi.</p>
-        <div class="countdown" aria-live="polite">
-          <div class="count-item"><strong id="days">0</strong><span>Hari</span></div>
-          <div class="count-item"><strong id="hours">0</strong><span>Jam</span></div>
-          <div class="count-item"><strong id="minutes">0</strong><span>Menit</span></div>
-          <div class="count-item"><strong id="seconds">0</strong><span>Detik</span></div>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="section-card">
-        <h2 class="section-title">Penutup</h2>
-        <p class="closing">
-          Semoga Allah SWT senantiasa melimpahkan keberkahan, kebahagiaan, dan cinta yang menenteramkan dalam perjalanan rumah tangga kami.<br><br>
-          Wassalamu’alaikum Warahmatullahi Wabarakatuh<br><br>
-          <strong>Andre & Idhi</strong>
-        </p>
-      </div>
-    </section>
-
-    <footer>
-      Dibuat dengan cinta untuk momen istimewa Andre & Idhi · 25 Juli 2026 · Brebes
-    </footer>
-  </main>
-
-  <script>
-    function openInvitation() {
-      const opening = document.getElementById('opening-screen');
-      const music = document.getElementById('bg-music');
-
-      opening.style.opacity = '0';
-      opening.style.transition = 'opacity 0.8s ease';
-
-      setTimeout(() => {
-        opening.style.display = 'none';
-      }, 800);
-
-      music.volume = 0.6;
-      music.play().catch(() => {
-        console.log('Music autoplay was blocked by the browser.');
-      });
-    }
-
-    
-    function sendRSVP(event) {
-      event.preventDefault();
-      const name = document.getElementById('guestName').value.trim();
-      const attendance = document.getElementById('attendance').value;
-      const message = document.getElementById('guestMessage').value.trim();
-
-      const text = `Assalamu’alaikum, saya ${name}.
-Kehadiran: ${attendance}.
-Ucapan/Doa: ${message || '-'}
-
-Selamat atas pernikahan Andre & Idhi.`;
-      const url = `https://wa.me/6280000000000?text=${encodeURIComponent(text)}`;
-      window.open(url, '_blank');
-    }
-
-    
-    const eventDate = new Date("2026-07-25T08:00:00+07:00").getTime();
-
-    function updateCountdown() {
-      const now = new Date().getTime();
-      const distance = eventDate - now;
-
-      if (distance <= 0) {
-        document.getElementById('days').textContent = '0';
-        document.getElementById('hours').textContent = '0';
-        document.getElementById('minutes').textContent = '0';
-        document.getElementById('seconds').textContent = '0';
-        return;
-      }
-
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-      document.getElementById('days').textContent = days;
-      document.getElementById('hours').textContent = hours;
-      document.getElementById('minutes').textContent = minutes;
-      document.getElementById('seconds').textContent = seconds;
-    }
-
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
-  
-    // Auto unmute when user interacts (required by browser)
-    document.addEventListener('click', function () {
-      const music = document.getElementById('bg-music');
-      if (music.muted) {
-        music.muted = false;
-        music.play();
-      }
-    }); else {
-        music.pause();
-      }
-    }
-
-  </script>
 </body>
 </html>
