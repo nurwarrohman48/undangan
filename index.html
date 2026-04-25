@@ -88,6 +88,18 @@
       align-items: center;
       padding: 20px 0 36px;
     }
+	
+	.payment-logo {
+	  width: 90px;
+      height: auto;
+      margin-bottom: 12px;
+    }
+
+	.gift-note {
+      font-size: 13px;
+      color: #756e65;
+      line-height: 1.8;
+    }
 
     .hero-card {
       display: grid;
@@ -509,27 +521,31 @@
       </div>
     </section>
 
-    <section id="gift">
-      <div class="section-card">
-        <h2 class="section-title">Wedding Gift</h2>
-        <div class="gift-grid">
-          <div class="mini-card">
-            <h3>Bank / E-Wallet</h3>
-            <p>No. Rekening</p>
-            <h3 id="rekening1">0000000000</h3>
-            <p>Atas Nama<br><strong>Andre</strong></p>
-            <button class="btn btn-secondary" onclick="copyText('rekening1')">Salin No</button>
-          </div>
-          <div class="mini-card">
-            <h3>Bank / E-Wallet</h3>
-            <p>No. Rekening</p>
-            <h3 id="rekening2">0000000000</h3>
-            <p>Atas Nama<br><strong>Idhi</strong></p>
-            <button class="btn btn-secondary" onclick="copyText('rekening2')">Salin No</button>
-          </div>
-        </div>
+<section id="gift">
+  <div class="section-card">
+    <h2 class="section-title">Wedding Gift</h2>
+    <p class="section-subtitle"></p>
+
+    <div class="gift-grid">
+
+      <div class="mini-card">
+        <img src="gopay.png" class="payment-logo" alt="GoPay">
+        <strong id="rekening1">085642989030</strong>
+        <p><strong>Idhiyani Murounaky</strong></p>
+        <button class="btn btn-secondary" onclick="copyText('rekening1')">Salin No</button>
       </div>
-    </section>
+
+      <div class="mini-card">
+        <img src="bri.png" class="payment-logo" alt="BRI">
+        <strong id="rekening2">368401030262538</strong>
+        <p><strong>Idhiyani Murounaky</strong></p>
+        <button class="btn btn-secondary" onclick="copyText('rekening2')">Salin No</button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 
     <section id="rsvp">
       <div class="section-card">
