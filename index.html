@@ -347,14 +347,30 @@
       border: 1px solid rgba(138,161,125,0.14);
     }
 
-    .wish-status {
-      display: inline-block;
-      margin: 6px 0 8px;
-      padding: 5px 10px;
+    .wish-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-left: 8px;
+      padding: 4px 10px;
       border-radius: 999px;
-      background: rgba(138,161,125,0.14);
-      color: var(--matcha-dark);
-      font-size: 0.9rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    .badge-hadir {
+      background: rgba(138,161,125,0.18);
+      color: #4f684b;
+    }
+
+    .badge-tidak {
+      background: rgba(217,139,151,0.18);
+      color: #a85a66;
+    }
+
+    .badge-ragu {
+      background: rgba(201,170,101,0.18);
+      color: #8a6b2c;
     }
 
     .quran {
@@ -644,19 +660,20 @@
       button.disabled = false;
     }
 
+    function getStatusBadge(text) {
+      if (!text) return '';
+      if (text.startsWith('[Hadir]')) return '<span class="wish-badge badge-hadir">✅ Hadir</span>';
+      if (text.startsWith('[Tidak Hadir]')) return '<span class="wish-badge badge-tidak">🙏 Tidak Hadir</span>';
+      if (text.startsWith('[Ragu]')) return '<span class="wish-badge badge-ragu">❔ Ragu</span>';
+      return '';
+    }
+
     function formatWishMessage(text) {
       if (!text) return '';
       const safeText = escapeHTML(text);
-
-      if (safeText.startsWith('[Hadir]')) {
-        return '<span class="wish-status">✅ Hadir</span><br>' + safeText.replace('[Hadir]', '').trim();
-      }
-      if (safeText.startsWith('[Tidak Hadir]')) {
-        return '<span class="wish-status">🙏 Tidak Hadir</span><br>' + safeText.replace('[Tidak Hadir]', '').trim();
-      }
-      if (safeText.startsWith('[Ragu]')) {
-        return '<span class="wish-status">❔ Ragu</span><br>' + safeText.replace('[Ragu]', '').trim();
-      }
+      if (safeText.startsWith('[Hadir]')) return safeText.replace('[Hadir]', '').trim();
+      if (safeText.startsWith('[Tidak Hadir]')) return safeText.replace('[Tidak Hadir]', '').trim();
+      if (safeText.startsWith('[Ragu]')) return safeText.replace('[Ragu]', '').trim();
       return safeText;
     }
 
@@ -687,7 +704,7 @@
 
         container.innerHTML = data.reverse().map(w => `
           <div class="wish-card">
-            <strong style="color:#4f684b;">${escapeHTML(w.name)}</strong><br>
+            <strong style="color:#4f684b;">${escapeHTML(w.name)} ${getStatusBadge(w.message)}</strong><br>
             ${formatWishMessage(w.message)}
           </div>
         `).join('');
