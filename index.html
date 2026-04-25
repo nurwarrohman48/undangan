@@ -306,6 +306,57 @@
     }
     textarea { resize: vertical; }
 
+    .rsvp-icons {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .rsvp-option {
+      border: 1px solid rgba(138,161,125,0.25);
+      background: rgba(255,255,255,0.78);
+      border-radius: 18px;
+      padding: 14px 8px;
+      cursor: pointer;
+      font-family: inherit;
+      color: #5d5851;
+      transition: 0.25s ease;
+      font-size: 0.9rem;
+    }
+
+    .rsvp-option .icon {
+      display: block;
+      font-size: 1.8rem;
+      margin-bottom: 6px;
+    }
+
+    .rsvp-option.active {
+      background: linear-gradient(180deg, rgba(138,161,125,0.22), rgba(247,220,225,0.38));
+      border-color: var(--matcha);
+      box-shadow: 0 8px 20px rgba(79,104,75,0.14);
+      transform: translateY(-2px);
+    }
+
+    .wish-card {
+      background: white;
+      padding: 14px 16px;
+      border-radius: 14px;
+      margin-bottom: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      border: 1px solid rgba(138,161,125,0.14);
+    }
+
+    .wish-status {
+      display: inline-block;
+      margin: 6px 0 8px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: rgba(138,161,125,0.14);
+      color: var(--matcha-dark);
+      font-size: 0.9rem;
+    }
+
     .quran {
       font-size: 1.35rem;
       line-height: 2;
@@ -333,6 +384,7 @@
       .hero-content { padding: 32px 20px; }
       .countdown { grid-template-columns: repeat(2, 1fr); }
       .section-card { padding: 30px 18px; }
+      .rsvp-icons { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -473,10 +525,27 @@
     <section id="rsvp">
       <div class="section-card">
         <h2 class="section-title">Ucapan & Doa</h2>
-        <p class="section-subtitle">Tulis ucapan dan doa Anda untuk kedua mempelai</p>
+        <p class="section-subtitle">Pilih konfirmasi kehadiran, lalu tulis ucapan dan doa Anda untuk kedua mempelai.</p>
 
         <form onsubmit="addWish(event)">
           <input id="wishName" type="text" placeholder="Nama Anda" required>
+
+          <input id="attendanceValue" type="hidden" required>
+          <div class="rsvp-icons">
+            <button type="button" class="rsvp-option" onclick="selectAttendance('Hadir', this)">
+              <span class="icon">✅</span>
+              Hadir
+            </button>
+            <button type="button" class="rsvp-option" onclick="selectAttendance('Tidak Hadir', this)">
+              <span class="icon">🙏</span>
+              Tidak Hadir
+            </button>
+            <button type="button" class="rsvp-option" onclick="selectAttendance('Ragu', this)">
+              <span class="icon">❔</span>
+              Ragu
+            </button>
+          </div>
+
           <textarea id="wishMessage" rows="3" placeholder="Tulis ucapan atau doa" required></textarea>
           <button class="btn btn-primary" type="submit">Kirim Ucapan</button>
         </form>
@@ -508,6 +577,9 @@
   </main>
 
   <script>
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyFEfw65_MXr2qAakjOS5QywXRkOoY45EF6_YzlEgAiju0iIjsz1XuK43uRKhm4wtdE/exec';
+    const eventDate = new Date('2026-07-25T08:00:00+07:00').getTime();
+
     function getGuestName() {
       const params = new URLSearchParams(window.location.search);
       const guest = params.get('to');
@@ -525,27 +597,26 @@
       music.play().catch(() => console.log('Music blocked. Check music.mp3.'));
     }
 
-    function sendRSVP(event) {
-      event.preventDefault();
-      const name = document.getElementById('guestName').value.trim();
-      const attendance = document.getElementById('attendance').value;
-      const guestCount = document.getElementById('guestCount').value;
-      const message = document.getElementById('guestMessage').value.trim();
-      const text = `Assalamu’alaikum, saya ${name}.\nKehadiran: ${attendance}.\nJumlah tamu: ${guestCount}.\nUcapan/Doa: ${message || '-'}\n\nSelamat atas pernikahan Andre & Idhi.`;
-      const url = `https://wa.me/6280000000000?text=${encodeURIComponent(text)}`;
-      window.open(url, '_blank');
+    function selectAttendance(value, button) {
+      document.getElementById('attendanceValue').value = value;
+      document.querySelectorAll('.rsvp-option').forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
     }
-
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyFEfw65_MXr2qAakjOS5QywXRkOoY45EF6_YzlEgAiju0iIjsz1XuK43uRKhm4wtdE/exec';
 
     async function addWish(event) {
       event.preventDefault();
       const name = document.getElementById('wishName').value.trim();
+      const attendance = document.getElementById('attendanceValue').value;
       const message = document.getElementById('wishMessage').value.trim();
+
+      if (!attendance) {
+        alert('Silakan pilih konfirmasi kehadiran: Hadir, Tidak Hadir, atau Ragu.');
+        return;
+      }
 
       if (!name || !message) return;
 
-      const button = event.target.querySelector('button');
+      const button = event.target.querySelector('button[type="submit"]');
       button.textContent = 'Mengirim...';
       button.disabled = true;
 
@@ -554,11 +625,16 @@
           method: 'POST',
           mode: 'no-cors',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name, message })
+          body: JSON.stringify({
+            name: name,
+            message: `[${attendance}] ${message}`
+          })
         });
 
         document.getElementById('wishName').value = '';
         document.getElementById('wishMessage').value = '';
+        document.getElementById('attendanceValue').value = '';
+        document.querySelectorAll('.rsvp-option').forEach(btn => btn.classList.remove('active'));
         loadWishes();
       } catch (error) {
         alert('Gagal mengirim ucapan');
@@ -568,35 +644,75 @@
       button.disabled = false;
     }
 
+    function formatWishMessage(text) {
+      if (!text) return '';
+      const safeText = escapeHTML(text);
+
+      if (safeText.startsWith('[Hadir]')) {
+        return '<span class="wish-status">✅ Hadir</span><br>' + safeText.replace('[Hadir]', '').trim();
+      }
+      if (safeText.startsWith('[Tidak Hadir]')) {
+        return '<span class="wish-status">🙏 Tidak Hadir</span><br>' + safeText.replace('[Tidak Hadir]', '').trim();
+      }
+      if (safeText.startsWith('[Ragu]')) {
+        return '<span class="wish-status">❔ Ragu</span><br>' + safeText.replace('[Ragu]', '').trim();
+      }
+      return safeText;
+    }
+
+    function escapeHTML(text) {
+      return String(text).replace(/[&<>'"]/g, function (char) {
+        return {
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          "'": '&#39;',
+          '"': '&quot;'
+        }[char];
+      });
+    }
+
     async function loadWishes() {
       const container = document.getElementById('wishList');
-      container.innerHTML = 'Memuat...';
+      container.innerHTML = '<p style="text-align:center;">Memuat ucapan...</p>';
 
       try {
         const response = await fetch(SCRIPT_URL);
         const data = await response.json();
 
         if (!data.length) {
-          container.innerHTML = '<p>Belum ada ucapan</p>';
+          container.innerHTML = '<p style="text-align:center; color:#756e65;">Belum ada ucapan. Jadilah yang pertama memberi doa.</p>';
           return;
         }
 
         container.innerHTML = data.reverse().map(w => `
-          <div style="background:white;padding:12px;border-radius:10px;margin-bottom:10px;">
-            <strong>${w.name}</strong><br>${w.message}
+          <div class="wish-card">
+            <strong style="color:#4f684b;">${escapeHTML(w.name)}</strong><br>
+            ${formatWishMessage(w.message)}
           </div>
         `).join('');
       } catch (err) {
-        container.innerHTML = '<p>Gagal load ucapan</p>';
+        container.innerHTML = '<p style="text-align:center; color:#d98b97;">Gagal memuat ucapan. Cek Web App URL atau koneksi internet.</p>';
       }
-    } 
+    }
 
-    const eventDate = new Date('2026-07-25T08:00:00+07:00').getTime();
+    function copyText(id) {
+      const text = document.getElementById(id).textContent;
+      navigator.clipboard.writeText(text).then(() => alert('Nomor berhasil disalin'));
+    }
 
     function updateCountdown() {
       const now = new Date().getTime();
       const distance = eventDate - now;
-      if (distance <= 0) return;
+
+      if (distance <= 0) {
+        document.getElementById('days').textContent = '0';
+        document.getElementById('hours').textContent = '0';
+        document.getElementById('minutes').textContent = '0';
+        document.getElementById('seconds').textContent = '0';
+        return;
+      }
+
       document.getElementById('days').textContent = Math.floor(distance / (1000 * 60 * 60 * 24));
       document.getElementById('hours').textContent = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       document.getElementById('minutes').textContent = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
