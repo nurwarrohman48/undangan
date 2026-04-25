@@ -90,10 +90,17 @@
     }
 	
 	.payment-logo {
-	  width: 90px;
-      height: auto;
-      margin-bottom: 12px;
-    }
+	  width: 60px;
+	  display: block;
+	  margin: 0 auto 12px auto;  /* ini yang bikin center */
+	}
+	
+	.mini-card {
+	  display: flex;
+	  flex-direction: column;
+	  align-items: center; /* center horizontal */
+	  text-align: center;  /* center text */
+	}
 
 	.gift-note {
       font-size: 13px;
@@ -346,8 +353,8 @@
     }
 
     .rsvp-option .icon {
-      display: block;
-      font-size: 1.8rem;
+      display: flex;
+      font-size: 1rem;
       margin-bottom: 6px;
     }
 
@@ -521,12 +528,12 @@
       </div>
     </section>
 
-<section id="gift">
-  <div class="section-card">
-    <h2 class="section-title">Wedding Gift</h2>
-    <p class="section-subtitle"></p>
-
-    <div class="gift-grid">
+    <section id="gift">
+      <div class="section-card">
+        <h2 class="section-title">Wedding Gift</h2>
+        <p class="section-subtitle">
+         
+        <div class="gift-grid">
 
       <div class="mini-card">
         <img src="gopay.png" class="payment-logo" alt="GoPay">
@@ -542,9 +549,20 @@
         <button class="btn btn-secondary" onclick="copyText('rekening2')">Salin No</button>
       </div>
 
-    </div>
-  </div>
-</section>
+		<div class="mini-card" style="margin-top:18px;">
+			<h3>Kirim Hadiah</h3>
+			<p class="gift-note">
+			Idhiyani Murounaky
+			</p>
+			<p>
+			<p>Kubang Kulur RT 01 RW 05 Desa Pengarasan, Kec. Bantarkawung, Kab. Brebes</p>
+			</p>
+			<a class="btn btn-primary" href="https://maps.app.goo.gl/TYEihZfE53QeEXek9" target="_blank" rel="noopener">
+			Google Maps
+			</a>
+		</div>
+		</div>
+	</section>
 
 
     <section id="rsvp">
