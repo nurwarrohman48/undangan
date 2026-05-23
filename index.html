@@ -514,7 +514,7 @@
 
 <body>
   <audio id="bg-music" loop preload="auto">
-    <source src="music.mp3" type="audio/mpeg">
+    <source src="music.mp4" type="audio/mpeg">
   </audio>
 
   <div id="opening-screen">
@@ -716,7 +716,7 @@
       opening.style.opacity = '0';
       setTimeout(() => opening.style.display = 'none', 800);
       music.volume = 0.6;
-      music.play().catch(() => console.log('Music blocked. Check music.mp3.'));
+      music.play().catch(() => console.log('Music blocked. Check music.mp4.'));
     }
 
     function selectAttendance(value, button) {
