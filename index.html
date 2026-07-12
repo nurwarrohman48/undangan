@@ -521,6 +521,43 @@
       line-height: 1.7;
     }
 
+	#wishPagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 16px auto 0;
+}
+
+.pagination-btn {
+  border: 1px solid rgba(138,161,125,0.28);
+  background: rgba(255,255,255,0.88);
+  color: var(--matcha-dark);
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-family: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.pagination-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  background: rgba(223,232,215,0.7);
+}
+
+.pagination-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.pagination-info {
+  min-width: 96px;
+  text-align: center;
+  color: #756e65;
+  font-size: 12px;
+}
     @media (max-width: 820px) {
       .hero-card, .couple-grid, .event-grid, .gift-grid, .rsvp-grid {
         grid-template-columns: 1fr;
@@ -542,6 +579,8 @@
   	font-size: 1rem;
   	line-height: 1.4;
     }
+
+	}
   </style>
 </head>
 
@@ -738,7 +777,10 @@
   <script>
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyFEfw65_MXr2qAakjOS5QywXRkOoY45EF6_YzlEgAiju0iIjsz1XuK43uRKhm4wtdE/exec';
     const eventDate = new Date(2026, 6, 25, 8, 0, 0).getTime();
-
+	const WISHES_PER_PAGE = 5;
+	let allWishes = [];
+	let currentWishPage = 1;
+	  
     function getGuestName() {
       const params = new URLSearchParams(window.location.search);
       const guest = params.get('to');
@@ -798,7 +840,8 @@
         document.getElementById('wishMessage').value = '';
         document.getElementById('attendanceValue').value = '';
         document.querySelectorAll('.rsvp-option').forEach(btn => btn.classList.remove('active'));
-        loadWishes();
+		currentWishPage = 1;
+		loadWishes();
       } catch (error) {
         alert('Gagal mengirim ucapan');
       }
@@ -836,29 +879,114 @@
       });
     }
 
-    async function loadWishes() {
-      const container = document.getElementById('wishList');
-      container.innerHTML = '<p style="text-align:center;">Memuat ucapan...</p>';
+function renderWishPage() {
+  const container = document.getElementById('wishList');
 
-      try {
-        const response = await fetch(SCRIPT_URL);
-        const data = await response.json();
+  if (!allWishes.length) {
+    container.innerHTML =
+      '<p style="text-align:center; color:#756e65;">Belum ada ucapan. Jadilah yang pertama memberi doa.</p>';
+    return;
+  }
 
-        if (!data.length) {
-          container.innerHTML = '<p style="text-align:center; color:#756e65;">Belum ada ucapan. Jadilah yang pertama memberi doa.</p>';
-          return;
-        }
+  const totalPages = Math.ceil(
+    allWishes.length / WISHES_PER_PAGE
+  );
 
-        container.innerHTML = data.reverse().map(w => `
-          <div class="wish-card">
-            <strong style="color:#4f684b;">${escapeHTML(w.name)} ${getStatusBadge(w.message)}</strong><br>
-            ${formatWishMessage(w.message)}
-          </div>
-        `).join('');
-      } catch (err) {
-        container.innerHTML = '<p style="text-align:center; color:#d98b97;">Gagal memuat ucapan. Cek Web App URL atau koneksi internet.</p>';
-      }
-    }
+  currentWishPage = Math.min(
+    Math.max(currentWishPage, 1),
+    totalPages
+  );
+
+  const startIndex =
+    (currentWishPage - 1) * WISHES_PER_PAGE;
+
+  const wishesOnPage = allWishes.slice(
+    startIndex,
+    startIndex + WISHES_PER_PAGE
+  );
+
+  const wishCards = wishesOnPage.map(w => `
+    <div class="wish-card">
+      <strong style="color:#4f684b;">
+        ${escapeHTML(w.name)}
+        ${getStatusBadge(w.message)}
+      </strong><br>
+      ${formatWishMessage(w.message)}
+    </div>
+  `).join('');
+
+  const pagination = totalPages > 1 ? `
+    <div id="wishPagination" aria-label="Navigasi halaman ucapan">
+
+      <button
+        type="button"
+        class="pagination-btn"
+        onclick="changeWishPage(-1)"
+        ${currentWishPage === 1 ? 'disabled' : ''}
+      >
+        ← Sebelumnya
+      </button>
+
+      <span class="pagination-info">
+        Halaman ${currentWishPage} dari ${totalPages}
+      </span>
+
+      <button
+        type="button"
+        class="pagination-btn"
+        onclick="changeWishPage(1)"
+        ${currentWishPage === totalPages ? 'disabled' : ''}
+      >
+        Berikutnya →
+      </button>
+
+    </div>
+  ` : '';
+
+  container.innerHTML = wishCards + pagination;
+}
+
+function changeWishPage(direction) {
+  const totalPages = Math.ceil(
+    allWishes.length / WISHES_PER_PAGE
+  );
+
+  const nextPage = currentWishPage + direction;
+
+  if (nextPage < 1 || nextPage > totalPages) {
+    return;
+  }
+
+  currentWishPage = nextPage;
+  renderWishPage();
+
+  document.getElementById('wishList').scrollIntoView({
+    behavior: 'smooth',
+    block: 'start'
+  });
+}
+
+async function loadWishes() {
+  const container = document.getElementById('wishList');
+
+  container.innerHTML =
+    '<p style="text-align:center;">Memuat ucapan...</p>';
+
+  try {
+    const response = await fetch(SCRIPT_URL);
+    const data = await response.json();
+
+    allWishes = Array.isArray(data)
+      ? [...data].reverse()
+      : [];
+
+    renderWishPage();
+
+  } catch (err) {
+    container.innerHTML =
+      '<p style="text-align:center; color:#d98b97;">Gagal memuat ucapan. Cek Web App URL atau koneksi internet.</p>';
+  }
+}
 
     function copyText(id) {
       const text = document.getElementById(id).textContent;
